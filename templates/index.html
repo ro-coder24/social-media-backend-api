@@ -1,0 +1,44 @@
+<!-- fetches the message from app.py -->
+<div id="apiMessage"></div>
+<script>
+fetch('/api/message')
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('apiMessage').textContent = data.message;
+    });
+</script>
+
+<!-- forms for registering and logging user in -->
+<div class="form-container">
+    <h2>Register</h2>
+    <form id="registerForm">
+        <input type="text" placeholder="Username" required />
+        <input type="email" placeholder="Email" required />
+        <input type="password" placeholder="Password" required />
+        <button type="submit">Register</button>
+    </form>
+
+    <h2>Login</h2>
+    <form id="loginForm">
+        <input type="text" placeholder="Username or Email" required />
+        <input type="password" placeholder="Password" required />
+        <button type="submit">Login</button>
+    </form>
+</div>
+
+<!-- fetches get_post from app.py -->
+<div id="posts"></div>
+<script>
+fetch('/api/posts')
+    .then(response => response.json())
+    .then(posts => {
+        const postsDiv = document.getElementById('posts');
+        const ul = document.createElement('ul');
+        posts.forEach(post => {
+            const li = document.createElement('li');
+            li.textContent = post.content;
+            ul.appendChild(li);
+        })
+        postsDiv.appendChild(ul);
+    });
+</script>
